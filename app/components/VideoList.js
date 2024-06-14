@@ -19,7 +19,11 @@ const VideoList = () => {
     const fetchVideos = async () => {
       try {
         const data = await getVideos();
-        setVideos(data);
+        // Sort videos by publication date in descending order
+        const sortedVideos = data.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setVideos(sortedVideos);
       } catch (err) {
         setError("Failed to fetch videos");
       }
