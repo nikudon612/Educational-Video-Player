@@ -35,7 +35,7 @@ const VideoDetail = async ({ params }) => {
   }
 
   return (
-    <div className="mx-auto p-4">
+    <div className="mx-auto py-4">
       <div className="mb-8">
         <iframe
           width="100%"
