@@ -35,7 +35,7 @@ const VideoDetail = async ({ params }) => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-auto p-4">
       <div className="mb-8">
         <iframe
           width="100%"
@@ -47,14 +47,13 @@ const VideoDetail = async ({ params }) => {
           className="rounded-lg"
         ></iframe>
       </div>
-      <div className="flex flex-col gap-3">
-        <h1 className="text-3xl font-bold">{video.title}</h1>
-        <div className="flex items-center gap-2">
-          <p className="text-sm text-gray-500">{video.user_id}</p>
+      <div className="bg-white p-4 rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold mb-2">{video.title}</h1>
+        <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+          <p className="font-semibold">{video.user_id}</p>
         </div>
-        <div className="border-t border-gray-200 mt-4 pt-4">
-          <p className="text-sm">{video.description}</p>
-        </div>
+        <div className="border-t border-gray-300 my-4"></div> {/* Divider */}
+        <p className="text-sm">{video.description}</p>
       </div>
       <CommentSection videoId={id} />
     </div>

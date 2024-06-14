@@ -56,12 +56,21 @@ const CommentSection = ({ videoId }) => {
       {!loading &&
         comments.length > 0 &&
         comments.map((comment) => (
-          <div key={comment.id} className="p-2 border rounded">
-            <p className=" text-gray-500 text-[14px]">{comment.user_id}</p>
-            <p>{comment.content}</p>
+          <div key={comment.id} className="flex items-start space-x-4 mt-4">
+            {/* <div className="flex-shrink-0">
+              <img
+                className="w-10 h-10 rounded-full"
+                src={`https://i.pravatar.cc/150?u=${comment.user_id}`}
+                alt={comment.user_id}
+              />
+            </div> */}
+            <div>
+              <p className="text-gray-700 font-semibold">{comment.user_id}</p>
+              <p className="text-gray-600">{comment.content}</p>
+            </div>
           </div>
         ))}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mt-6">
         <textarea
           value={newCommentText}
           onChange={(e) => setNewCommentText(e.target.value)}
