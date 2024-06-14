@@ -20,12 +20,12 @@ const VideoList = () => {
   }, []);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mt-6">
       {error && <p className="text-red-500">{error}</p>}
       {videos.map(video => (
         <div key={video.id} className="p-4 border rounded shadow-sm">
           <h3 className="text-xl font-bold">
-            <Link href={`/videos/${video.id}`}>{video.title}</Link>
+            <Link href={`${video.video_url}`}>{video.title}</Link>
           </h3>
           <p>{video.description}</p>
         </div>
