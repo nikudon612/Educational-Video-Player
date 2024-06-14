@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
               <img src="/FULL_LOGO_COLOR.png" alt="Logo" className="w-32" />
             </Link>
             <div>
-              <Link href="/videos/new">Add Video</Link>
+              <Link href="/videos/new" className="text-3xl text-gray-600" alt="Upload video">+</Link>
             </div>
           </nav>
         </header>
