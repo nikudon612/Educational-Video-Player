@@ -7,6 +7,7 @@ const VideoForm = () => {
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -24,6 +25,13 @@ const VideoForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(null); // Reset error state
+    setSuccess(null); // Reset success state
+
+    if (!title || !description || !url) {
+      setError("All fields are required.");
+      return;
+    }
 
     try {
       const createdVideo = await createVideo(title, description, url);
@@ -32,7 +40,13 @@ const VideoForm = () => {
       // Update videos list after successful creation
       fetchVideos();
 
-      // Optionally, reset form fields or show success message
+      // Show success message
+      setSuccess("Video created successfully!");
+
+      // Optionally, reset form fields
+      setTitle("");
+      setDescription("");
+      setUrl("");
     } catch (error) {
       setError("Error creating video. Please try again."); // Handle specific error messages as needed
       console.error("Error creating video:", error);
@@ -43,9 +57,10 @@ const VideoForm = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-4 border rounded shadow-sm"
+        className="space-y-4"
       >
         {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
         <input
           className="w-full p-2 border rounded text-black"
           value={title}

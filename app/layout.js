@@ -1,15 +1,21 @@
-import './globals.css';
+import "./globals.css";
+import Link from "next/link";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100">
-        <header className="bg-blue-600 text-white p-4">
-          <h1 className="text-2xl">Educational Video Platform</h1>
+      <body className="bg-white">
+        <header className="text-black p-4 mx-auto">
+          <nav className="flex flex-row justify-between">
+            <Link href="/">
+              <img src="/FULL_LOGO_COLOR.png" alt="Logo" className="w-32" />
+            </Link>
+            <div>
+              <Link href="/videos/new" className="text-3xl text-gray-600" alt="Upload video">+</Link>
+            </div>
+          </nav>
         </header>
-        <main className="p-4">
-          {children}
-        </main>
+        <main className="p-4">{children}</main>
       </body>
     </html>
   );
