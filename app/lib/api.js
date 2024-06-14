@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "https://take-home-assessment-423502.uc.r.appspot.com/api";
-const user_id = "nick_bechtel"; // Assuming user_id is constant for the logged-in user
+export const user_id = "nick_bechtel"; // Assuming user_id is constant for the logged-in user
 const possible_user_ids = ["nick_bechtel", "Kana", "Yoshi"]; // A list of pre-defined user IDs to allow view of all videos in this sample environment
 
 // Function to create a new video
