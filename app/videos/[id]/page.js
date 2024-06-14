@@ -1,4 +1,5 @@
 import { getVideoById } from "../../lib/api"; // Adjust the path as needed
+import CommentSection from "../../components/CommentSection"; // Adjust the path as needed
 
 const extractVideoId = (url) => {
   if (!url) return null;
@@ -34,12 +35,12 @@ const VideoDetail = async ({ params }) => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
+    <div className="max-w-7xl mx-auto">
       <div className="mb-8">
         <iframe
           width="100%"
           height="500px"
-          src={`https://www.youtube.com/embed/${videoId}`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
           title={video.title}
           frameBorder="0"
           allowFullScreen
@@ -55,6 +56,7 @@ const VideoDetail = async ({ params }) => {
           <p className="text-sm">{video.description}</p>
         </div>
       </div>
+      <CommentSection videoId={id} />
     </div>
   );
 };

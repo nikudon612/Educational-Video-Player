@@ -7,17 +7,17 @@ const user_id = "nick_bechtel"; // Assuming user_id is constant for the logged-i
 export const createVideo = async (title, description, videoUrl) => {
   try {
     const response = await axios.post(`${BASE_URL}/videos`, {
-      user_id: user_id, // Ensure user_id is correctly set if needed
+      user_id: user_id,
       title: title,
       description: description,
-      video_url: videoUrl, // Ensure property name matches API endpoint
+      video_url: videoUrl,
     });
 
     console.log("Created video successfully:", response.data);
-    return response.data.video_url; // Return the created video URL from response if available
+    return response.data.video_url;
   } catch (error) {
     console.error("Error creating video:", error.message);
-    throw error; // Throw the error to handle it further up the call chain
+    throw error;
   }
 };
 
@@ -30,13 +30,12 @@ export const getVideos = async () => {
       },
     });
     console.log("Fetched videos successfully:", response.data.videos);
-    return response.data.videos; // Return the videos array
+    return response.data.videos;
   } catch (error) {
     console.error("Error fetching videos:", error);
-    throw error; // Rethrow the error to handle it in the calling function
+    throw error;
   }
 };
-
 
 // Function to fetch a single video by its ID
 export const getVideoById = async (id) => {
@@ -47,9 +46,42 @@ export const getVideoById = async (id) => {
       },
     });
     console.log("Fetched video successfully:", response.data);
-    return response.data; // Return the video data
+    return response.data;
   } catch (error) {
     console.error("Error fetching video:", error);
-    throw error; // Rethrow the error to handle it in the calling function
+    throw error;
+  }
+};
+
+// Function to fetch comments for a specific video
+export const getCommentsByVideoId = async (video_id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/videos/comments?video_id=${video_id}`, {
+      headers: {
+        accept: "application/json",
+      },
+    });
+    console.log("Fetched comments successfully:", response.data.comments);
+    return response.data.comments;
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    throw error;
+  }
+};
+
+// Function to create a new comment for a video
+export const createComment = async (video_id, content) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/videos/comments`, {
+      video_id: video_id,
+      content: content,
+      user_id: user_id,
+    });
+
+    console.log("Created comment successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating comment:", error.message);
+    throw error;
   }
 };

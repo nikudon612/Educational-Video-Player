@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { getVideoComments, createVideoComment } from '../lib/api';
+import { getCommentsByVideoId, createComment } from '../lib/api';
 
 const CommentSection = ({ videoId }) => {
   const [comments, setComments] = useState([]);
@@ -13,7 +13,7 @@ const CommentSection = ({ videoId }) => {
 
   const fetchComments = async () => {
     try {
-      const fetchedComments = await getVideoComments(videoId);
+      const fetchedComments = await getCommentsByVideoId(videoId);
       setComments(fetchedComments);
     } catch (error) {
       console.error('Error fetching comments:', error);
@@ -24,7 +24,7 @@ const CommentSection = ({ videoId }) => {
     event.preventDefault();
 
     try {
-      await createVideoComment(videoId, newCommentText);
+      await createComment(videoId, newCommentText);
       setNewCommentText(''); // Clear input field after successful submission
       fetchComments(); // Refresh comments after new comment is posted
     } catch (error) {
@@ -35,11 +35,11 @@ const CommentSection = ({ videoId }) => {
 
   return (
     <div className="space-y-4 mt-4">
-      <h3>Comments</h3>
+      <h3 className='font-bold text-xl'>Comments</h3>
       {comments.length === 0 && <p>No comments yet.</p>}
       {comments.map(comment => (
         <div key={comment.id} className="p-2 border rounded">
-          <p>{comment.text}</p>
+          <p>{comment.content}</p>
         </div>
       ))}
       <form onSubmit={handleSubmit}>

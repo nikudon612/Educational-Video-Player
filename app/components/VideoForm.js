@@ -57,7 +57,7 @@ const VideoForm = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-4 border rounded shadow-sm"
+        className="space-y-4"
       >
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}

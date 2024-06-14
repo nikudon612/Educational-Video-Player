@@ -5,10 +5,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-white">
-        <header className="bg-blue-600 text-white p-4 mx-auto">
+        <header className="text-black p-4 mx-auto">
           <nav className="flex flex-row justify-between">
             <Link href="/">
-              <h1 className="text-2xl">Educational Video Platform</h1>
+              <img src="/FULL_LOGO_COLOR.png" alt="Logo" className="w-32" />
             </Link>
             <div>
               <Link href="/videos/new">Add Video</Link>
