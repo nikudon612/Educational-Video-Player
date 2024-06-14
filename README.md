@@ -35,6 +35,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Notes / Description
+
 LearnWell is an educational video hosting platform that allows users to engage with each other - similar to Youtube. 
 The Application:
 - Hosts a homepage which displays videos users have uploaded
