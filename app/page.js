@@ -2,7 +2,7 @@ import VideoList from "./components/VideoList";
 
 const Home = () => {
   return (
-    <div className="container mx-auto">
+    <div className="mx-auto">
       <VideoList />
     </div>
   );

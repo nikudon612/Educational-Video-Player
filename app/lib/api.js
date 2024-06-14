@@ -36,3 +36,20 @@ export const getVideos = async () => {
     throw error; // Rethrow the error to handle it in the calling function
   }
 };
+
+
+// Function to fetch a single video by its ID
+export const getVideoById = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/videos/single?video_id=${id}`, {
+      headers: {
+        accept: "application/json",
+      },
+    });
+    console.log("Fetched video successfully:", response.data);
+    return response.data; // Return the video data
+  } catch (error) {
+    console.error("Error fetching video:", error);
+    throw error; // Rethrow the error to handle it in the calling function
+  }
+};

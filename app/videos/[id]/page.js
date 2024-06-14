@@ -1,48 +1,57 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import CommentSection from "../../components/CommentSection";
+import { getVideoById } from "../../lib/api"; // Adjust the path as needed
 
-export default function VideoDetailPage() {
-  const { id } = useParams();
-  const [video, setVideo] = useState(null);
-  const [comments, setComments] = useState([]);
+const extractVideoId = (url) => {
+  if (!url) return null;
+  const regExp =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regExp);
+  return match ? match[1] : null;
+};
 
-  useEffect(() => {
-    if (id !== undefined) {
-      const storedVideos = JSON.parse(localStorage.getItem("videos")) || [];
-      const videoData = storedVideos[parseInt(id)];
-      setVideo(videoData);
+const VideoDetail = async ({ params }) => {
+  const { id } = params;
+  console.log("Video ID:", id);
+  let video;
 
-      // Fetch comments from local storage
-      const storedComments = JSON.parse(localStorage.getItem(`comments-${id}`)) || [];
-      setComments(storedComments);
-    }
-  }, [id]);
+  try {
+    const response = await getVideoById(id);
+    console.log("Fetched Single Video:", response);
+    video = response.video;
+  } catch (error) {
+    console.error("Failed to fetch video:", error);
+    return <p>Failed to fetch video data.</p>;
+  }
 
-  const addComment = (comment) => {
-    const newComments = [...comments, comment];
-    setComments(newComments);
-    localStorage.setItem(`comments-${id}`, JSON.stringify(newComments));
-  };
+  if (!video) {
+    return <p>Video not found</p>;
+  }
 
-  if (!video) return <div>Loading...</div>;
+  const videoId = extractVideoId(video.video_url);
+  console.log("Extracted Video ID:", videoId);
+
+  if (!videoId) {
+    return <p>Invalid video URL</p>;
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">{video.title}</h1>
-      <div className="aspect-w-16 aspect-h-9">
+    <div className="p-4">
+      <div className="my-4">
         <iframe
-          src={video.video_url}
+          width="560"
+          height="315"
+          src={`https://www.youtube.com/embed/${videoId}`}
           title={video.title}
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="w-full h-full"
         ></iframe>
       </div>
-      <p className="mt-4">{video.description}</p>
-      <CommentSection comments={comments} addComment={addComment} />
+      <div className="flex flex-col gap-3">
+        <h1 className="text-2xl font-bold">{video.title}</h1>
+        <p className="text-[12px]">{video.description}</p>
+        <p className="text-[14px] font-semibold text-gray-500">{video.user_id}</p>
+      </div>
     </div>
   );
-}
+};
+
+export default VideoDetail;
