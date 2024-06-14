@@ -34,21 +34,26 @@ const VideoDetail = async ({ params }) => {
   }
 
   return (
-    <div className="p-4">
-      <div className="my-4">
+    <div className="max-w-7xl mx-auto p-4">
+      <div className="mb-8">
         <iframe
-          width="560"
-          height="315"
+          width="100%"
+          height="500px"
           src={`https://www.youtube.com/embed/${videoId}`}
           title={video.title}
           frameBorder="0"
           allowFullScreen
+          className="rounded-lg"
         ></iframe>
       </div>
       <div className="flex flex-col gap-3">
-        <h1 className="text-2xl font-bold">{video.title}</h1>
-        <p className="text-[12px]">{video.description}</p>
-        <p className="text-[14px] font-semibold text-gray-500">{video.user_id}</p>
+        <h1 className="text-3xl font-bold">{video.title}</h1>
+        <div className="flex items-center gap-2">
+          <p className="text-sm text-gray-500">{video.user_id}</p>
+        </div>
+        <div className="border-t border-gray-200 mt-4 pt-4">
+          <p className="text-sm">{video.description}</p>
+        </div>
       </div>
     </div>
   );
