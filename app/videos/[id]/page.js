@@ -3,13 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import CommentSection from "../../components/CommentSection";
 
-const extractVideoId = (url) => {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-};
-
-export default function VideoDetail() {
+export default function VideoDetailPage() {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
   const [comments, setComments] = useState([]);
@@ -17,7 +11,7 @@ export default function VideoDetail() {
   useEffect(() => {
     if (id !== undefined) {
       const storedVideos = JSON.parse(localStorage.getItem("videos")) || [];
-      const videoData = storedVideos[id];
+      const videoData = storedVideos[parseInt(id)];
       setVideo(videoData);
 
       // Fetch comments from local storage
@@ -34,15 +28,12 @@ export default function VideoDetail() {
 
   if (!video) return <div>Loading...</div>;
 
-  const videoId = extractVideoId(video.video_url);
-  const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{video.title}</h1>
       <div className="aspect-w-16 aspect-h-9">
         <iframe
-          src={videoEmbedUrl}
+          src={video.video_url}
           title={video.title}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
